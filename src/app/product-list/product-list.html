@@ -56,12 +56,10 @@
           [alt]="item.name + ' image'"
           loading="lazy"
         />
-        <span class="product-tag" *ngIf="i < 2">Top seller</span>
       </div>
 
       <div class="card-body">
         <h3 class="product-name">{{ item.name }}</h3>
-        <p class="product-subtitle">Premium quality with fast delivery</p>
         <div class="card-foot">
           <p class="product-price">{{ item.price | currency:'INR':'symbol' }}</p>
           <div class="card-actions">
