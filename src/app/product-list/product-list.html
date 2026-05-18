@@ -1,0 +1,78 @@
+<main class="container product-list" aria-labelledby="product-list-heading">
+
+  <header class="header">
+    <div class="header-title">
+      <h1 id="product-list-heading">Shopping Products</h1>
+      <span class="product-count">{{ products.length }} items</span>
+    </div>
+
+    <div class="header-actions">
+      <div class="control-group">
+        <label class="sr-only" for="search">Search products</label>
+        <input id="search" #searchInput type="search" placeholder="Search products" aria-label="Search products" (input)="onSearch(searchInput.value)" />
+      </div>
+
+      <div class="control-group">
+        <label for="sort" class="sr-only">Sort products</label>
+        <select id="sort" #sortSelect (change)="onSort(sortSelect.value)" aria-label="Sort products">
+          <option value="default">Sort</option>
+          <option value="priceAsc">Price: Low → High</option>
+          <option value="priceDesc">Price: High → Low</option>
+          <option value="nameAsc">Name: A → Z</option>
+        </select>
+      </div>
+
+      <button class="cart-btn" (click)="goToCart()" aria-label="View shopping cart">View Cart</button>
+    </div>
+  </header>
+
+  <section *ngIf="loading" class="empty-state">
+    <h3>Loading products…</h3>
+    <p>If this takes a while, try refreshing the page or check your network connection.</p>
+  </section>
+
+  <section *ngIf="!loading && errorMessage" class="error-state">
+    <h3>Error</h3>
+    <p>{{ errorMessage }}</p>
+  </section>
+
+  <section *ngIf="cartMessage" class="cart-message" [ngClass]="cartMessageType">
+    <p>{{ cartMessage }}</p>
+  </section>
+
+  <section *ngIf="!loading && !errorMessage && products.length === 0" class="empty-state">
+    <h3>No products available</h3>
+    <p>There are no products to show right now.</p>
+  </section>
+
+  <section *ngIf="!loading && products.length > 0" class="products" role="list" aria-live="polite">
+
+    <article class="card" *ngFor="let item of products; let i = index; trackBy: trackByProductId" role="listitem">
+
+      <div class="card-image-wrap">
+        <img
+          class="product-image"
+          [src]="item.imageUrl"
+          [alt]="item.name + ' image'"
+          loading="lazy"
+        />
+        <span class="product-tag" *ngIf="i < 2">Top seller</span>
+      </div>
+
+      <div class="card-body">
+        <h3 class="product-name">{{ item.name }}</h3>
+        <p class="product-subtitle">Premium quality with fast delivery</p>
+        <div class="card-foot">
+          <p class="product-price">{{ item.price | currency:'INR':'symbol' }}</p>
+          <div class="card-actions">
+            <button class="btn add" (click)="addToCart(item)" [attr.aria-label]="'Add ' + item.name + ' to cart'">Add to Cart</button>
+            <button class="btn inactive" (click)="inactivateProduct(item)" [attr.aria-label]="'Inactivate ' + item.name">Inactive</button>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+  </section>
+
+</main>

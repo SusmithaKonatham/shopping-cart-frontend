@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div class="cart-header">
+    <button class="btn-back" (click)="goBack()">← Back To Products</button>
+    <h1>Your Cart</h1>
+  </div>
+
+  <section *ngIf="message" class="cart-message" [ngClass]="messageType">
+    <p>{{ message }}</p>
+  </section>
+
+  <ng-container *ngIf="cartItems$ | async as cartItems">
+    <section *ngIf="cartItems.length === 0" class="empty-cart">
+      <h2>Your cart is empty</h2>
+      <p>Add some products to get started</p>
+      <button class="btn-primary" (click)="continueShopping()">Continue Shopping</button>
+    </section>
+
+    <section *ngIf="cartItems.length > 0" class="cart-content">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems; trackBy: trackByCartItemId" class="cart-item">
+            <td class="product-name">{{ item.productName }}</td>
+            <td class="product-price">₹ {{ item.price }}</td>
+            <td class="product-action">
+              <button class="btn-delete" (click)="deleteFromCart(item.id, item.productName)" [attr.aria-label]="'Remove ' + item.productName">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span class="summary-label">Subtotal:</span>
+          <span class="summary-value">₹ {{ total$ | async }}</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Shipping:</span>
+          <span class="summary-value">FREE</span>
+        </div>
+        <div class="summary-row total">
+          <span class="summary-label">Total:</span>
+          <span class="summary-value">₹ {{ total$ | async }}</span>
+        </div>
+      </div>
+
+      <div class="payment-actions">
+        <button class="btn-checkout" (click)="checkout()">Proceed to Checkout</button>
+        <button class="btn-continue" (click)="continueShopping()">Continue Shopping</button>
+      </div>
+    </section>
+  </ng-container>
+
+</div>
