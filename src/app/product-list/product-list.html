@@ -22,9 +22,46 @@
         </select>
       </div>
 
+      <button class="cart-btn" type="button" (click)="openAddProductModal()" aria-label="Open add product dialog">Add Product</button>
       <button class="cart-btn" (click)="goToCart()" aria-label="View shopping cart">View Cart</button>
     </div>
+
   </header>
+
+  <div *ngIf="isAddProductModalOpen" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="add-product-title">
+    <div class="modal">
+      <header class="modal-header">
+        <h2 id="add-product-title">Add Product</h2>
+        <button class="modal-close" type="button" (click)="closeAddProductModal()" aria-label="Close add product dialog">×</button>
+      </header>
+
+      <form class="modal-form" (submit)="submitAddProduct(); $event.preventDefault();">
+        <div *ngIf="addProductError" class="modal-error">{{ addProductError }}</div>
+
+        <div class="form-row">
+          <label for="new-product-name">Name</label>
+          <input id="new-product-name" type="text" [(ngModel)]="newProductName" name="newProductName" required />
+        </div>
+
+        <div class="form-row">
+          <label for="new-product-price">Price</label>
+          <input id="new-product-price" type="number" min="0.01" step="0.01" [(ngModel)]="newProductPrice" name="newProductPrice" required />
+        </div>
+
+        <!-- <div class="form-row">
+          <label for="new-product-image">Image</label>
+          <input id="new-product-image" type="file" accept="image/*" (change)="onAddProductImageChange($event)" />
+          <img *ngIf="newProductImagePreview" [src]="newProductImagePreview" alt="Selected product preview" class="image-preview" />
+        </div> -->
+
+        <div class="modal-actions">
+          <button type="button" class="btn inactive" (click)="closeAddProductModal()">Cancel</button>
+          <button type="submit" class="btn add">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
   <section *ngIf="loading" class="empty-state">
     <h3>Loading products…</h3>

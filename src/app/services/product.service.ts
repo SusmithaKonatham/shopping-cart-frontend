@@ -22,7 +22,7 @@ export class ProductService {
     private http: HttpClient,
     @Inject(API_BASE_URL) private baseUrl: string
   ) {
-    this.apiUrl = `${this.baseUrl}/products`;
+    this.apiUrl = `${this.baseUrl}/v1/products`;
   }
 
   getProducts(): Observable<Product[]> {
@@ -35,7 +35,16 @@ export class ProductService {
     return this.http.post<Product>(this.apiUrl, product);
   }
 
+  uploadImage(file: File): Observable<string> {
+    const uploadUrl = `${this.baseUrl}/v1/uploads`;
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ imageUrl: string }>(uploadUrl, formData).pipe(
+      map((response) => response.imageUrl)
+    );
+  }
+
   inactivateProduct(id: number): Observable<{ message: string }> {
-    return this.http.put<{ message: string }>(`${this.apiUrl}/${id}`, {});
+    return this.http.patch<{ message: string }>(`${this.apiUrl}/${id}/deactivate`, {});
   }
 }
