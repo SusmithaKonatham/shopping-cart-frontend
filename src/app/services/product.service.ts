@@ -47,4 +47,8 @@ export class ProductService {
   inactivateProduct(id: number): Observable<{ message: string }> {
     return this.http.patch<{ message: string }>(`${this.apiUrl}/${id}/deactivate`, {});
   }
+   activateProduct(id: number): Observable<{ message: string }> {
+    return this.http.patch<{ message: string }>(`${this.apiUrl}/${id}/activate`, {});
+  }
+
 }

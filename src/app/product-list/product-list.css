@@ -9,7 +9,7 @@
 
 .header-actions{display:flex;align-items:center;gap:8px}
 
-.cart-btn{background:linear-gradient(180deg,var(--primary),#0b56d6);color:#fff;padding:8px 14px;border-radius:10px;border:none;box-shadow:0 6px 18px rgba(15,111,255,0.12);cursor:pointer}
+.cart-btn{background:linear-gradient(180deg,var(--primary),#d6410b);color:#fff;padding:8px 14px;border-radius:10px;border:none;box-shadow:0 6px 18px rgba(255, 59, 15, 0.12);cursor:pointer}
 
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:22px}
 
@@ -39,7 +39,7 @@
 
 .cart-message.error{background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.25);color:#991b1b}
 
-.cart-message.info{background:rgba(59,130,246,0.12);border-color:rgba(59,130,246,0.25);color:#1d4ed8}
+.cart-message.info{background:rgba(59,130,246,0.12);border-color:rgba(234, 246, 59, 0.804);color:#1d4ed8}
 
 .empty-state,.error-state{background:transparent;padding:18px;border-radius:10px}
 
@@ -148,4 +148,8 @@ button {
 
 .card .price {
   color: #4d7cff;
+}
+
+.cart-icon {
+   color: #ffffff;
 }

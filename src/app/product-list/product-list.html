@@ -23,7 +23,10 @@
       </div>
 
       <button class="cart-btn" type="button" (click)="openAddProductModal()" aria-label="Open add product dialog">Add Product</button>
-      <button class="cart-btn" (click)="goToCart()" aria-label="View shopping cart">View Cart</button>
+     <button class="cart-btn" (click)="goToCart()" aria-label="View shopping cart">
+     <span class="cart-icon">🛒</span>
+     <span class="cart-text">Cart</span>
+     </button>
     </div>
 
   </header>
@@ -101,7 +104,7 @@
           <p class="product-price">{{ item.price | currency:'INR':'symbol' }}</p>
           <div class="card-actions">
             <button class="btn add" (click)="addToCart(item)" [attr.aria-label]="'Add ' + item.name + ' to cart'">Add to Cart</button>
-            <button class="btn inactive" (click)="inactivateProduct(item)" [attr.aria-label]="'Inactivate ' + item.name">Inactive</button>
+           <button class="btn" (click)="toggleProductStatus(item)"> {{ item.active ? 'Inactivate' : 'Activate' }} </button>
           </div>
         </div>
       </div>

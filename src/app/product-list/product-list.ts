@@ -372,6 +372,21 @@ export class ProductList implements OnInit {
 
     this.addProductError = '';
   }
+  toggleProductStatus(product: Product): void {
+
+  const request = product.active
+    ? this.productService.inactivateProduct(product.id)
+    : this.productService.activateProduct(product.id);
+
+  request.subscribe({
+    next: () => {
+      product.active = !product.active;
+    },
+    error: (err) => {
+      console.error('Status update failed', err);
+    }
+  });
+}
 
   private showMessage(
     message: string,
