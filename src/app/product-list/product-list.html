@@ -104,7 +104,7 @@
           <p class="product-price">{{ item.price | currency:'INR':'symbol' }}</p>
           <div class="card-actions">
             <button class="btn add" (click)="addToCart(item)" [attr.aria-label]="'Add ' + item.name + ' to cart'">Add to Cart</button>
-           <button class="btn" (click)="toggleProductStatus(item)"> {{ item.active ? 'Inactivate' : 'Activate' }} </button>
+           <button class="btn" (click)="toggleProductStatus(item)"> {{ item.active ? ' 🔴 Inactivate' : '🟢 Activate' }} </button>
           </div>
         </div>
       </div>
